@@ -18,6 +18,8 @@ anything.
 - A data preparation script (`prepare_dataset.py`) with its settings and
   name rules (`constants.py`). It turns the Companies House snapshot into the
   sample `company_names.csv` and the register keys `register_key_hashes.npy`.
+- A reproducibility file (`requirements.txt`), generated with `pip freeze`
+  inside the project's own virtual environment.
 - TBD
 
 ## Dataset
@@ -46,9 +48,8 @@ writes two files:
   own implementation and not the official test, so a match is only a possible
   collision with a real company.
 
-TBD
-
-To build both files from the original file:
+`register_key_hashes.npy` is included in this repository, `company_names.csv`
+is TBD. To build both files from the original file:
 ```
 python prepare_dataset.py --download
 ```
