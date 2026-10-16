@@ -1,11 +1,7 @@
 # Generative AI Applications Project: Generating Company Names with a Character-Level Transformer
 
 ## Project Description
-I train a small decoder-only Transformer from scratch in PyTorch that writes
-new UK company names, one character at a time. It learns from 80,142 names of
-real private limited companies on the Companies House register. The
-evaluation asks whether the names are plausible and varied, and whether they
-copy training names or the names of companies that already exist.
+TBD
 
 The question connects to my earlier capstone projects, which worked with a
 company register, company registrations, a bankruptcy score and negative
@@ -23,7 +19,7 @@ anything.
 - TBD
 
 ## Dataset
-Companies House, Free Company Data Product, the monthly snapshot of all live
+Companies House, Free Company Data Product, the monthly list of all live
 companies on the UK register, snapshot of 2026-10-01:
 https://download.companieshouse.gov.uk/en_output.html
 
@@ -48,17 +44,16 @@ writes two files:
   own implementation and not the official test, so a match is only a possible
   collision with a real company.
 
-`register_key_hashes.npy` is included in this repository, `company_names.csv`
-is TBD. To build both files from the original file:
+Both files are included. To build them from the original file:
 ```
 python prepare_dataset.py --download
 ```
 
 The download page lists only the latest snapshot. If the file of 2026-10-01
-is no longer online, a newer one can be passed with `--source`, and the
-results will differ. For the snapshot of 2026-10-01 (SHA-256
-`29d54c17e5bf39862a08d5ebf1ae83abc079c8591c8c6d1bab0a29879accb4ee`) the
-script writes `company_names.csv` with SHA-256
+is no longer online, a newer one can be passed with `--source`, but then the
+results will differ. The file of 2026-10-01 has the SHA-256
+`29d54c17e5bf39862a08d5ebf1ae83abc079c8591c8c6d1bab0a29879accb4ee`, and from
+it the script writes `company_names.csv` with SHA-256
 `b37e08c9ac6750aba2e5c12b95f75f88802593ff7300535d922be1a50786336b` and
 `register_key_hashes.npy` with SHA-256
 `427970c7b750a5d57ab9a647f126c6b5872495660941be70644047ad89a1855a`.
