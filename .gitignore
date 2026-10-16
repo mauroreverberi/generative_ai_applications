@@ -223,3 +223,6 @@ __marimo__/
 .claude/
 data/
 *.partial
+
+# the global gitignore excludes *.csv, the name sample belongs in this repository
+!company_names.csv
