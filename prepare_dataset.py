@@ -20,9 +20,9 @@ from pathlib import Path
 import numpy as np
 
 from constants import (
-    SNAPSHOT, SOURCE_URL, SOURCE_SHA256, SEED, SAMPLE_SIZE, TEST_SHARE, VALIDATION_SHARE,
-    CATEGORY, MAX_LENGTH, ALLOWED_CHARACTERS, NAME_ENDINGS, IGNORED_ENDINGS,
-    SPECIAL_LETTERS, SYMBOLS, WORDS, DIGITS, LEGAL_ENDINGS, OTHER_ENDINGS,
+    SNAPSHOT, SOURCE_URL, SOURCE_SHA256, DATA_FILE, REGISTER_FILE, SEED, SAMPLE_SIZE,
+    TEST_SHARE, VALIDATION_SHARE, CATEGORY, MAX_LENGTH, ALLOWED_CHARACTERS, NAME_ENDINGS,
+    IGNORED_ENDINGS, SPECIAL_LETTERS, SYMBOLS, WORDS, DIGITS, LEGAL_ENDINGS, OTHER_ENDINGS,
 )
 
 
@@ -193,12 +193,12 @@ def print_splits(rows):
 def write_output(rows, hashes, output_dir):
     """Write company_names.csv and register_key_hashes.npy and return their paths."""
     output_dir.mkdir(parents=True, exist_ok=True)
-    data_path = output_dir / "company_names.csv"
+    data_path = output_dir / DATA_FILE
     with data_path.open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=["name", "group", "split"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
-    keys_path = output_dir / "register_key_hashes.npy"
+    keys_path = output_dir / REGISTER_FILE
     np.save(keys_path, hashes)
     return data_path, keys_path
 

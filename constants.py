@@ -3,6 +3,10 @@
 SNAPSHOT = "2026-10-01"
 SOURCE_URL = f"https://download.companieshouse.gov.uk/BasicCompanyDataAsOneFile-{SNAPSHOT}.zip"
 SOURCE_SHA256 = "29d54c17e5bf39862a08d5ebf1ae83abc079c8591c8c6d1bab0a29879accb4ee"
+# output files of prepare_dataset.py, the notebook reads them
+DATA_FILE = "company_names.csv"
+REGISTER_FILE = "register_key_hashes.npy"
+
 SEED = 42
 SAMPLE_SIZE = 100_000
 CATEGORY = "Private Limited Company"
@@ -51,3 +55,4 @@ OTHER_ENDINGS = [
 IGNORED_ENDINGS = ["LIMITED", "LTD", "PLC", "LLP", "CYFYNGEDIG", "CYF", "UNLIMITED",
                    "AND CO", "AND COMPANY", "CO", "COM", "NET", "ORG", "BIZ", "EU",
                    "UK", "UNITED KINGDOM", "GB", "GREAT BRITAIN", "NI", "NORTHERN IRELAND", "WALES"]
+
