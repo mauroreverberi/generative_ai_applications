@@ -3,7 +3,7 @@
 ## Project Description
 TBD
 
-The question connects to my earlier capstone projects, which worked with a
+This project connects to my earlier capstone projects, which worked with a
 company register, company registrations, a bankruptcy score and negative
 company news. A later capstone project will build a due diligence agent that
 matches company names against registers and lists. Generated names could
@@ -14,6 +14,8 @@ anything.
 - A data preparation script (`prepare_dataset.py`) with its settings and
   name rules (`constants.py`). It turns the Companies House snapshot into the
   sample `company_names.csv` and the register keys `register_key_hashes.npy`.
+- A tokenizer module (`tokenizer.py`) with the character tokenizer of the
+  notebook, adapted from the course.
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 - TBD
