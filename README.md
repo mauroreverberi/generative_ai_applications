@@ -16,6 +16,8 @@ anything.
   sample `company_names.csv` and the register keys `register_key_hashes.npy`.
 - A tokenizer module (`tokenizer.py`) with the character tokenizer of the
   notebook, adapted from the course.
+- A reference model (`ngram.py`), a character n-gram model without deep
+  learning, used in the notebook as a baseline.
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 - TBD
