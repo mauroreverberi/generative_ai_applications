@@ -18,6 +18,8 @@ anything.
   notebook, adapted from the course.
 - A reference model (`ngram.py`), a character n-gram model without deep
   learning, used in the notebook as a baseline.
+- The model classes (`model.py`), a decoder-only Transformer built from my own
+  PyTorch classes, from the attention head to the full model `NameGPT`.
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 - TBD
