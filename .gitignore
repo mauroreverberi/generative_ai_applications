@@ -226,3 +226,8 @@ data/
 
 # the global gitignore excludes *.csv, the name sample belongs in this repository
 !company_names.csv
+
+# outputs of training runs after the reference run
+new_run/
+# the files of the reference run belong in this repository, also its CSV files
+!reference_run/*.csv

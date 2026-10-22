@@ -20,6 +20,8 @@ anything.
   learning, used in the notebook as a baseline.
 - The model classes (`model.py`), a decoder-only Transformer built from my own
   PyTorch classes, from the attention head to the full model `NameGPT`.
+- A folder `reference_run` with the weights of the trained model
+  (`model_weights.pt`) and its loss history (`training_history.csv`).
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 - TBD
