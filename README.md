@@ -21,7 +21,8 @@ anything.
 - The model classes (`model.py`), a decoder-only Transformer built from my own
   PyTorch classes, from the attention head to the full model `NameGPT`.
 - A folder `reference_run` with the weights of the trained model
-  (`model_weights.pt`) and its loss history (`training_history.csv`).
+  (`model_weights.pt`), its loss history (`training_history.csv`) and the
+  generated names (`generated_names.csv`).
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 - TBD

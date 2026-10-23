@@ -50,3 +50,21 @@ class CharNgram:
                 total -= math.log(self.probabilities(context)[next_id])
                 count += 1
         return total / count
+
+    def generate(self, count, temperature, seed, max_steps):
+        """Generate count names one character at a time, return them with a finished flag each."""
+        rng = np.random.default_rng(seed)
+        names, finished = [], []
+        for _ in range(count):
+            ids = []
+            for step in range(max_steps):
+                context = tuple(([self.end_id] * (self.order - 1) + ids)[-(self.order - 1):])
+                probabilities = self.probabilities(context) ** (1 / temperature)
+                next_id = int(rng.choice(len(probabilities), p=probabilities / probabilities.sum()))
+                # after the last step only the end marker counts
+                if next_id == self.end_id or step == max_steps - 1:
+                    break
+                ids.append(next_id)
+            names.append(self.tokenizer.decode(ids))
+            finished.append(next_id == self.end_id)
+        return names, finished
