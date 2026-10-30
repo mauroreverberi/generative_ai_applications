@@ -224,7 +224,7 @@ def download(target):
     """Download the snapshot and check its checksum."""
     target.parent.mkdir(parents=True, exist_ok=True)
     partial = target.with_suffix(".partial")
-    print(f"downloading {SOURCE_URL} (about 470 MB) ...", flush=True)
+    print(f"downloading {SOURCE_URL} (about 494 MB) ...", flush=True)
     urllib.request.urlretrieve(SOURCE_URL, partial)
     if sha256_of_file(partial) != SOURCE_SHA256:
         sys.exit("The downloaded file does not match the expected SHA-256.")
