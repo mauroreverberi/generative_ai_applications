@@ -231,3 +231,6 @@ data/
 new_run/
 # the files of the reference run belong in this repository, also its CSV files
 !reference_run/*.csv
+
+# the Word source of the report, only the PDF is part of the submission
+Generative_AI_Analysis_Report.docx

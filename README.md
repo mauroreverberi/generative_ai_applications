@@ -22,14 +22,15 @@ anything.
 - A Jupyter notebook (`generative_model.ipynb`) with the whole workflow: data
   checks, a character n-gram reference model, the Transformer built with the
   GPT-2 classes of Hugging Face Transformers (random weights, no
-  pretraining), my own training loop with a loss curve, the generation at four
+  pretraining), the same architecture once more in my own PyTorch classes as
+  a check, my own training loop with a loss curve, the generation at four
   temperatures, the checks against the training names and the register, the
   choice of the temperature, a qualitative evaluation of new names, collisions
   and failure cases, and a short summary. The project overview calls it
   `generative_ai.ipynb`, I use the file name from the submission instructions.
-- A written report (`Generative_AI_Analysis_Report.pdf`, with the Word source
-  `Generative_AI_Analysis_Report.docx`) that explains the task, the data, the
-  model, the training, the evaluation, the limitations and the ethical risks.
+- A written report (`Generative_AI_Analysis_Report.pdf`) that explains the
+  task, the data, the model, the training, the evaluation, the limitations and
+  the ethical risks.
   The project overview calls it `module_summary.pdf`, I use the file name from
   the submission instructions.
 - A data preparation script (`prepare_dataset.py`) with its settings and
@@ -57,8 +58,8 @@ be used. Possible rights of third parties in the data still apply. The names
 are real register entries, nothing is synthetic or generated, and I did not
 use this source in my earlier capstone projects.
 
-The snapshot (494 MB) is not included. `prepare_dataset.py` reads it once and
-writes two files:
+I downloaded the snapshot (494 MB) on 2026-10-16. It is not included,
+`prepare_dataset.py` reads it once and writes two files:
 
 - `company_names.csv` (3.6 MB), a random sample of 100,000 names of private
   limited companies with seed 42 and the columns `name`, `group` and `split`.
@@ -83,11 +84,29 @@ python prepare_dataset.py --download
 The download page lists only the latest snapshot. If the file of 2026-10-01
 is no longer online, a newer one can be passed with `--source`, but then the
 results will differ. The file of 2026-10-01 has the SHA-256
-`29d54c17e5bf39862a08d5ebf1ae83abc079c8591c8c6d1bab0a29879accb4ee`, and from
-it the script writes `company_names.csv` with SHA-256
-`b37e08c9ac6750aba2e5c12b95f75f88802593ff7300535d922be1a50786336b` and
-`register_key_hashes.npy` with SHA-256
-`427970c7b750a5d57ab9a647f126c6b5872495660941be70644047ad89a1855a`.
+`29d54c17e5bf39862a08d5ebf1ae83abc079c8591c8c6d1bab0a29879accb4ee`.
+
+This is the output of the script for that file, without the progress lines.
+The two SHA-256 values in the last lines are the same as the ones of the files
+in this repository, which you can check with `shasum -a 256 company_names.csv`
+(on Windows `certutil -hashfile company_names.csv SHA256`).
+```
+5,704,711 live companies in the snapshot, 1 empty or broken rows skipped
+removed, other category: 428,049
+removed, empty name: 0
+removed, character outside the allowed set: 6,984
+removed, longer than 60 characters: 2,415
+removed, other ending: 7,971
+5,259,292 names kept
+11 repeated names removed
+95,078 name groups, 1,901 of them with more than one name (6,823 names)
+train: 80,142 names (80.1%)
+validation: 9,835 names (9.8%)
+test: 10,023 names (10.0%)
+5,673,818 different keys in the register
+wrote company_names.csv, SHA-256 b37e08c9ac6750aba2e5c12b95f75f88802593ff7300535d922be1a50786336b
+wrote register_key_hashes.npy, SHA-256 427970c7b750a5d57ab9a647f126c6b5872495660941be70644047ad89a1855a
+```
 
 ## Main Results
 The model is a `GPT2LMHeadModel` of the Hugging Face Transformers library,
@@ -112,10 +131,10 @@ CONSULTING, at high temperature it writes more misspelled words, wrong endings a
 brackets.
 
 A rule on the validation names chose temperature 1.0 for the detailed
-examples. This is an exploratory choice. After removing invalid, repeated
-and register-matching names, 1.0 is still the closest on the same measure,
-but I added this check only after the rule, so it does not prove which
-temperature is best for the names I would use.
+examples. This is an exploratory choice. After removing names with a wrong
+ending, repeated names and register-key matches, 1.0 is still the closest
+on the same measure, but I added this check only after the rule, so it does
+not prove which temperature is best for the names I would use.
 
 ## How to Run the Project
 1. Clone this repository.
@@ -140,8 +159,9 @@ The notebook uses CUDA if it is available, otherwise the CPU. I do not use the
 GPU of a Mac (MPS), because two runs with the same seed gave slightly
 different results there. On the CPU of my Mac (Apple M1 Max) one epoch took
 about 3 to 5 minutes, so the training took about 75 minutes and a full run
-took about 80 to 85 minutes. Three training runs on the CPU gave the same loss
-in every epoch and the same weights.
+took about 80 to 85 minutes. Every later training run on the CPU gave the same
+loss in every epoch and the same weights, the notebook checks this after each
+new run.
 I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
 install, install it with the command from https://pytorch.org for your system.
 

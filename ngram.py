@@ -58,7 +58,8 @@ class CharNgram:
         for _ in range(count):
             ids = []
             for step in range(max_steps):
-                context = tuple(([self.end_id] * (self.order - 1) + ids)[-(self.order - 1):])
+                padded = [self.end_id] * (self.order - 1) + ids
+                context = tuple(padded[len(padded) - self.order + 1:])
                 probabilities = self.probabilities(context) ** (1 / temperature)
                 next_id = int(rng.choice(len(probabilities), p=probabilities / probabilities.sum()))
                 # after the last step only the end marker counts
