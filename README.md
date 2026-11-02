@@ -127,8 +127,8 @@ these names has the key of a training name, so most matches seem to be common
 names that real companies already use. Without further checks the names are
 not safe as test names that should not match real companies. At low
 temperature the model repeats generic names and overuses words like
-CONSULTING, at high temperature it writes more misspelled words, wrong endings and open
-brackets.
+CONSULTING. At 1.2, 11 names have a wrong ending, and some words in the
+examples are hard to read or brackets stay open.
 
 A rule on the validation names chose temperature 1.0 for the detailed
 examples. This is an exploratory choice. After removing names with a wrong
