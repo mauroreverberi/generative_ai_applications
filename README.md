@@ -121,9 +121,10 @@ Between 99.45% and 100% of them end with LTD, LTD. or LIMITED, and 16 of the
 8,000 names are exact copies of a training name. The register check matters
 more. The key of 44.25% of the names at temperature 0.5 matches a company in
 the snapshot, 21.15% at 0.8, 10.15% at 1.0 and 5.35% at 1.2. Almost none of
-these names has the key of a training name, so most matches seem to be common
-names that real companies already use. Without further checks the names are
-not safe as test names that should not match real companies. At low
+these names has the key of a training name, so most matches are not copies of
+training names but names whose key a real company already has. Without
+further checks the names are not safe as test names that should not match
+real companies. At low
 temperature the model repeats generic names and overuses words like
 CONSULTING. At 1.2, 11 names have a wrong ending, and some words in the
 examples are hard to read or brackets stay open.
@@ -154,10 +155,10 @@ not prove which temperature is best for the names I would use.
    (Kernel > Restart Kernel and Run All Cells).
 
 The notebook uses CUDA if it is available, otherwise the CPU. On the CPU of my
-Mac (Apple M1 Max) one epoch took about 3 to 5 minutes, so the training took
-about 75 to 95 minutes and a full run took about 80 to 100 minutes. The
-notebook trains the model in every full run. Repeated runs on the CPU gave the
-same loss in every epoch, the same weights and the same generated names.
+Mac (Apple M1 Max) one epoch took about 3.5 minutes, so the training took
+about 67 minutes and a full run about 69 minutes. The notebook trains the
+model in every full run. Repeated runs on the CPU gave the same loss in every
+epoch and the same generated names.
 I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
 install, install it with the command from https://pytorch.org for your system.
 
