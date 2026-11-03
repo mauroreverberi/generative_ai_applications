@@ -40,11 +40,9 @@ anything.
   notebook, adapted from the course.
 - A reference model (`ngram.py`), a character n-gram model without deep
   learning, used in the notebook as a baseline.
-- A folder `reference_run` with the weights of the trained model
-  (`model_weights.pt`), its loss history (`training_history.csv`) and the
-  generated names (`generated_names.csv`). The CSV holds the raw outputs,
-  including names with a register-key match and malformed names, so it is a
-  record of the run and not a list of approved test names.
+- A model module (`char_transformer.py`) with the same architecture as the
+  library model in my own PyTorch classes. The notebook copies the weights of
+  the library model into it and compares the logits of both.
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 
@@ -155,27 +153,17 @@ not prove which temperature is best for the names I would use.
 5. Open `generative_model.ipynb` and run all cells
    (Kernel > Restart Kernel and Run All Cells).
 
-The notebook uses CUDA if it is available, otherwise the CPU. I do not use the
-GPU of a Mac (MPS), because two runs with the same seed gave slightly
-different results there. On the CPU of my Mac (Apple M1 Max) one epoch took
-about 3 to 5 minutes, so the training took about 75 to 95 minutes and a full
-run took about 80 to 100 minutes. Every later training run on the CPU gave the same
-loss in every epoch and the same weights, the notebook checks this after each
-new run.
+The notebook uses CUDA if it is available, otherwise the CPU. On the CPU of my
+Mac (Apple M1 Max) one epoch took about 3 to 5 minutes, so the training took
+about 75 to 95 minutes and a full run took about 80 to 100 minutes. The
+notebook trains the model in every full run. Repeated runs on the CPU gave the
+same loss in every epoch, the same weights and the same generated names.
 I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
 install, install it with the command from https://pytorch.org for your system.
 
-The notebook, this README and the report describe the reference run in
-`reference_run`.
-With the default settings (`TRAIN_MODEL = True`,
-`ANALYSE_REFERENCE_RUN = True`) the notebook trains a new model into
-`new_run` but analyses the saved reference run. To analyse the new model, set
-`ANALYSE_REFERENCE_RUN = False`. With `TRAIN_MODEL = False` the notebook skips
-the training, and a full run took about 3 minutes. After a training run the
-notebook prints whether the new run has the same weights and losses as the
-reference run. If the generated names differ from the saved ones, for example
-on other hardware, the notebook prints this, keeps the new names in
-`new_run/names_from_reference_weights.csv` and analyses the saved names.
+The notebook, this README and the report describe my run on the CPU. On other
+hardware, for example with CUDA, the losses and the generated names can
+differ slightly.
 
 ## Dependencies
 `requirements.txt` was created inside the project's own virtual
