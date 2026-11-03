@@ -158,8 +158,8 @@ not prove which temperature is best for the names I would use.
 The notebook uses CUDA if it is available, otherwise the CPU. I do not use the
 GPU of a Mac (MPS), because two runs with the same seed gave slightly
 different results there. On the CPU of my Mac (Apple M1 Max) one epoch took
-about 3 to 5 minutes, so the training took about 75 minutes and a full run
-took about 80 to 85 minutes. Every later training run on the CPU gave the same
+about 3 to 5 minutes, so the training took about 75 to 95 minutes and a full
+run took about 80 to 100 minutes. Every later training run on the CPU gave the same
 loss in every epoch and the same weights, the notebook checks this after each
 new run.
 I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
