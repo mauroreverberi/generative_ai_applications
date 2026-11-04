@@ -8,8 +8,9 @@ I train a small decoder-only Transformer from scratch with PyTorch and the
 Hugging Face Transformers library. It writes new UK company names, one
 character at a time. It learns from 80,142 names of
 real private limited companies on the Companies House register. The
-evaluation checks whether the names are plausible and varied, and whether
-they copy training names or match companies that already exist.
+evaluation checks whether the names are plausible and varied, how often
+they copy a complete training name and how often they have the key of a
+company in the register.
 
 This project connects to my earlier capstone projects, which worked with a
 company register, company registrations, a bankruptcy score and negative
@@ -19,15 +20,17 @@ serve as test inputs for that step, names that look real but should not match
 anything.
 
 ## What Was Built
-- A Jupyter notebook (`generative_model.ipynb`) with the whole workflow: data
-  checks, a character n-gram reference model, the Transformer built with the
-  GPT-2 classes of Hugging Face Transformers (random weights, no
-  pretraining), the same architecture once more in my own PyTorch classes as
-  a check, my own training loop with a loss curve, the generation at four
-  temperatures, the checks against the training names and the register, the
-  choice of the temperature, a qualitative evaluation of new names, collisions
-  and failure cases, and a short summary. The project overview calls it
-  `generative_ai.ipynb`, I use the file name from the submission instructions.
+- A Jupyter notebook (`generative_model.ipynb`) with the whole workflow. It
+  starts with data checks and a character n-gram reference model. Then it
+  builds the Transformer with the GPT-2 classes of Hugging Face Transformers
+  (random weights, no pretraining), checks the same architecture once more in
+  my own PyTorch classes, and trains it with my own training loop and a loss
+  curve. After that it generates names at four temperatures, checks them
+  against the training names and the register, chooses the temperature,
+  evaluates new names, collisions and failure cases, and ends with a short
+  summary.
+  The project overview calls it `generative_ai.ipynb`, I use the file name
+  from the submission instructions.
 - A written report (`Generative_AI_Analysis_Report.pdf`) that explains the
   task, the data, the model, the training, the evaluation, the limitations and
   the ethical risks.
@@ -120,20 +123,18 @@ I generated 2,000 names at each of the temperatures 0.5, 0.8, 1.0 and 1.2.
 Between 99.45% and 100% of them end with LTD, LTD. or LIMITED, and 16 of the
 8,000 names are exact copies of a training name. The register check matters
 more. The key of 44.25% of the names at temperature 0.5 matches a company in
-the snapshot, 21.15% at 0.8, 10.15% at 1.0 and 5.35% at 1.2. Almost none of
-these names has the key of a training name, so most matches are not copies of
-training names but names whose key a real company already has. Without
-further checks the names are not safe as test names that should not match
-real companies. At low
-temperature the model repeats generic names and overuses words like
+the snapshot, 21.15% at 0.8, 10.15% at 1.0 and 5.35% at 1.2. Of the 1,618
+generated names whose key matched the register, only 37 had the key of a
+training name and 16 were exact copies. I did not test whether the model
+reproduced parts of other names. Without further checks the names are not
+safe as test names that should not match real companies. At low temperature
+the model repeats generic names and overuses words like
 CONSULTING. At 1.2, 11 names have a wrong ending, and some words in the
 examples are hard to read or brackets stay open.
 
-A rule on the validation names chose temperature 1.0 for the detailed
-examples. This is an exploratory choice. After removing names with a wrong
-ending, repeated names and register-key matches, 1.0 is still the closest
-on the same measure, but I added this check only after the rule, so it does
-not prove which temperature is best for the names I would use.
+I used temperature 1.0 for the examples because its similarity scores were
+closest to those of the validation names. I wrote this rule after I had
+already looked at the test names, so it is an exploratory choice.
 
 ## How to Run the Project
 1. Clone this repository.
@@ -156,7 +157,8 @@ not prove which temperature is best for the names I would use.
 
 The notebook uses CUDA if it is available, otherwise the CPU. On the CPU of my
 Mac (Apple M1 Max) one epoch took about 3.5 minutes, so the training took
-about 67 minutes and a full run about 69 minutes. The notebook trains the
+about 67 minutes and a full run about 69 minutes. On a busy machine an epoch
+took up to 6 minutes and a full run up to 100 minutes. The notebook trains the
 model in every full run. Repeated runs on the CPU gave the same loss in every
 epoch and the same generated names.
 I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
