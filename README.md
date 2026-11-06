@@ -155,8 +155,6 @@ training took about 80 minutes and the full run about 81 minutes. Other runs
 had epochs between 3.5 and 6 minutes and full runs between 69 and 100 minutes.
 The notebook trains the model in every full run. Repeated runs on the CPU gave the same loss in every
 epoch and the same generated names.
-I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
-install, install it with the command from https://pytorch.org for your system.
 
 The notebook, this README and the report describe my run on the CPU. On other
 hardware, for example with CUDA, the losses and the generated names can
