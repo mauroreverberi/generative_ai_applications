@@ -21,11 +21,12 @@ anything.
 
 ## What Was Built
 - A Jupyter notebook (`generative_model.ipynb`) with the whole workflow. It
-  starts with data checks and a character n-gram reference model. Then it
-  builds the Transformer with the GPT-2 classes of Hugging Face Transformers
-  (random weights, no pretraining), checks the same architecture once more in
-  my own PyTorch classes, and trains it with my own training loop and a loss
-  curve. After that it generates names at four temperatures, checks them
+  starts with data checks, the character tokenizer (adapted from the course)
+  and a character n-gram reference model. Then it builds the Transformer with
+  the GPT-2 classes of Hugging Face Transformers (random weights, no
+  pretraining), defines the same architecture once more in my own PyTorch
+  classes and compares the logits of both, and trains the model with my own
+  training loop and a loss curve. After that it generates names at four temperatures, checks them
   against the training names and the register, chooses the temperature,
   evaluates new names, collisions and failure cases, and ends with a short
   summary.
@@ -39,13 +40,6 @@ anything.
 - A data preparation script (`prepare_dataset.py`) with its settings and
   name rules (`constants.py`). It turns the Companies House snapshot into the
   sample `company_names.csv` and the register keys `register_key_hashes.npy`.
-- A tokenizer module (`tokenizer.py`) with the character tokenizer of the
-  notebook, adapted from the course.
-- A reference model (`ngram.py`), a character n-gram model without deep
-  learning, used in the notebook as a baseline.
-- A model module (`char_transformer.py`) with the same architecture as the
-  library model in my own PyTorch classes. The notebook copies the weights of
-  the library model into it and compares the logits of both.
 - A reproducibility file (`requirements.txt`), generated with `pip freeze`
   inside the project's own virtual environment.
 
@@ -156,17 +150,17 @@ already looked at the test names, so it is an exploratory choice.
    (Kernel > Restart Kernel and Run All Cells).
 
 The notebook uses CUDA if it is available, otherwise the CPU. On the CPU of my
-Mac (Apple M1 Max) one epoch took about 3.5 minutes, so the training took
-about 67 minutes and a full run about 69 minutes. On a busy machine an epoch
-took up to 6 minutes and a full run up to 100 minutes. The notebook trains the
-model in every full run. Repeated runs on the CPU gave the same loss in every
+Mac (Apple M1 Max) one epoch took about 4 minutes in the saved run, so the
+training took about 80 minutes and the full run about 81 minutes. Other runs
+had epochs between 3.5 and 6 minutes and full runs between 69 and 100 minutes.
+The notebook trains the model in every full run. Repeated runs on the CPU gave the same loss in every
 epoch and the same generated names.
 I could not test CUDA. If PyTorch does not find an NVIDIA GPU after the
 install, install it with the command from https://pytorch.org for your system.
 
 The notebook, this README and the report describe my run on the CPU. On other
 hardware, for example with CUDA, the losses and the generated names can
-differ slightly.
+differ.
 
 ## Dependencies
 `requirements.txt` was created inside the project's own virtual
